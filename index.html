@@ -434,23 +434,24 @@
         )
         .join("");
 
-      const ctaHtml = page.cta
+      const hasRealCta =
+        page.cta &&
+        page.cta.action &&
+        page.cta.action.type === "section" &&
+        page.cta.action.section;
+
+      const ctaHtml = hasRealCta
         ? `
- <button
-  onclick="nextPage()"
-  class="flex-1 h-14 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg transition-all active:scale-[0.98] ${
-    currentPage === totalPages - 1
-      ? "bg-blue-500 text-white"
-      : "bg-blue-700 text-white"
-  }"
->
-  ${
-    currentPage === totalPages - 1
-      ? "Section Complete"
-      : "Next Step"
-  }
-  <span>→</span>
-</button>
+          <button
+            onclick='handleCta(${JSON.stringify(page.cta.action)})'
+            class="mt-8 w-full bg-blue-600 hover:bg-blue-700 text-white rounded-3xl p-5 text-left shadow-lg transition-all"
+          >
+            <div class="text-xs font-bold uppercase tracking-widest text-blue-100 mb-1">Next Section</div>
+            <div class="text-base font-semibold flex items-center justify-between">
+              <span>${page.cta.label}</span>
+              <span>→</span>
+            </div>
+          </button>
         `
         : "";
 
@@ -512,21 +513,26 @@
                 : ""
             }
 
-            <button
-              onclick="nextPage()"
-              class="flex-1 h-14 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg transition-all active:scale-[0.98] ${
-                currentPage === totalPages - 1
-                  ? "bg-blue-500 text-white"
-                  : "bg-blue-700 text-white"
-              }"
-            >
-              ${
-                currentPage === totalPages - 1
-                  ? "Section Complete"
-                  : "Next Step"
-              }
-              <span>→</span>
-            </button>
+            ${
+              currentPage === totalPages - 1
+                ? `
+                <button
+                  class="flex-1 h-14 rounded-2xl font-bold flex items-center justify-center shadow-lg bg-blue-300 text-white cursor-default"
+                  disabled
+                >
+                  Section Complete
+                </button>
+              `
+                : `
+                <button
+                  onclick="nextPage()"
+                  class="flex-1 h-14 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg transition-all active:scale-[0.98] bg-blue-700 text-white"
+                >
+                  Next Step
+                  <span>→</span>
+                </button>
+              `
+            }
           </div>
         </footer>
       `;
