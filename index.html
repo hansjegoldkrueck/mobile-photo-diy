@@ -12,7 +12,6 @@
     content="A quick mobile guide to taking better photos on the go."
   />
 
-  <!-- Favicon -->
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
@@ -81,11 +80,7 @@
                 detail:
                   "Level up with simple guidance on lighting, composition, and stability."
               }
-            ],
-            cta: {
-              label: "Start with Set Up",
-              action: { type: "section", section: "setup" }
-            }
+            ]
           }
         ]
       },
@@ -155,11 +150,7 @@
                 label: "Clean your lens",
                 detail: "A quick wipe can make your photos much clearer."
               }
-            ],
-            cta: {
-              label: "Go to Get the Shot",
-              action: { type: "section", section: "shot" }
-            }
+            ]
           }
         ]
       },
@@ -247,11 +238,7 @@
                 label: "Avoid distractions",
                 detail: "Check the background for clutter or objects that pull attention away."
               }
-            ],
-            cta: {
-              label: "Go to Technical Tips",
-              action: { type: "section", section: "tech" }
-            }
+            ]
           }
         ]
       },
@@ -344,11 +331,7 @@
                 label: "Have fun",
                 detail: "Enjoy the process and keep experimenting."
               }
-            ],
-            cta: {
-              label: "Back to Home",
-              action: { type: "section", section: "home" }
-            }
+            ]
           }
         ]
       }
@@ -356,26 +339,6 @@
 
     let currentSection = 0;
     let currentPage = 0;
-
-    function getSectionIndexByKey(key) {
-      return sections.findIndex((section) => section.key === key);
-    }
-
-    function goToSection(sectionKey) {
-      const index = getSectionIndexByKey(sectionKey);
-      if (index >= 0) {
-        currentSection = index;
-        currentPage = 0;
-        render();
-      }
-    }
-
-    function handleCta(action) {
-      if (!action) return;
-      if (action.type === "section") {
-        goToSection(action.section);
-      }
-    }
 
     function render() {
       const activeSection = sections[currentSection];
@@ -434,33 +397,12 @@
         )
         .join("");
 
-      const hasRealCta =
-        page.cta &&
-        page.cta.action &&
-        page.cta.action.type === "section" &&
-        page.cta.action.section;
-
-      const ctaHtml = hasRealCta
-        ? `
-          <button
-            onclick='handleCta(${JSON.stringify(page.cta.action)})'
-            class="mt-8 w-full bg-blue-600 hover:bg-blue-700 text-white rounded-3xl p-5 text-left shadow-lg transition-all"
-          >
-            <div class="text-xs font-bold uppercase tracking-widest text-blue-100 mb-1">Next Section</div>
-            <div class="text-base font-semibold flex items-center justify-between">
-              <span>${page.cta.label}</span>
-              <span>→</span>
-            </div>
-          </button>
-        `
-        : "";
-
       app.innerHTML = `
         <header class="bg-white/95 px-6 pt-12 pb-6 border-b border-blue-100 sticky top-0 z-20 backdrop-blur-md">
           <div class="flex items-center justify-between mb-6">
             <div class="flex items-center gap-3">
               <div class="bg-blue-700 p-2 rounded-xl text-white">
-                <img src="/favicon-32.png" alt="HGK Photo logo" class="w-5 h-5" />
+                <img src="/favicon-32.png" alt="Photo logo" class="w-5 h-5" />
               </div>
               <span class="font-bold text-lg tracking-tight text-blue-950">Mobile Photo Guide</span>
             </div>
@@ -493,8 +435,6 @@
             <div class="space-y-4">
               ${activeSection.key === "home" ? homeCards : standardCards}
             </div>
-
-            ${ctaHtml}
           </div>
         </main>
 
@@ -562,7 +502,6 @@
     window.switchSection = switchSection;
     window.nextPage = nextPage;
     window.prevPage = prevPage;
-    window.handleCta = handleCta;
 
     render();
   </script>
