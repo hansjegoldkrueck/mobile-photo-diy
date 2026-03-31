@@ -2,544 +2,514 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
   <title>DIY Photo Guide</title>
   <meta
     name="description"
-    content="A quick guide to taking better photos on the go."
+    content="A quick mobile guide to taking better photos on the go."
   />
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    :root {
-      --bg: #f6f8fb;
-      --surface: #ffffff;
-      --surface-2: #eef3f9;
-      --text: #1f2937;
-      --muted: #5b6470;
-      --accent: #2563eb;
-      --accent-dark: #1d4ed8;
-      --border: #d9e2ec;
-      --shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
-      --radius: 18px;
-      --max-width: 1000px;
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    * {
-      box-sizing: border-box;
+    .animate-slide-in {
+      animation: slideIn 0.35s ease-out forwards;
     }
 
-    html {
-      scroll-behavior: smooth;
+    html,
+    body {
+      height: 100%;
     }
 
     body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: rgba(246, 248, 251, 0.95);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-wrap {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 14px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .brand {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--text);
-      letter-spacing: 0.2px;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .nav-links a {
-      display: inline-block;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-weight: 600;
-      text-decoration: none;
-    }
-
-    .nav-links a:hover {
-      background: var(--surface-2);
-    }
-
-    .container {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 28px 18px 60px;
-    }
-
-    .hero {
-      background: linear-gradient(135deg, #ffffff, #eef4ff);
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      box-shadow: var(--shadow);
-      padding: 32px 24px;
-      margin-bottom: 28px;
-    }
-
-    .hero-badge {
-      display: inline-block;
-      background: #e8f0ff;
-      color: var(--accent-dark);
-      border: 1px solid #cfe0ff;
-      border-radius: 999px;
-      padding: 6px 12px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      margin-bottom: 14px;
-    }
-
-    h1, h2, h3 {
-      line-height: 1.2;
-      margin-top: 0;
-    }
-
-    h1 {
-      font-size: 2.2rem;
-      margin-bottom: 12px;
-    }
-
-    h2 {
-      font-size: 1.8rem;
-      margin-bottom: 10px;
-    }
-
-    h3 {
-      font-size: 1.2rem;
-      margin-bottom: 8px;
-    }
-
-    .lead {
-      font-size: 1.08rem;
-      color: var(--muted);
-      max-width: 760px;
-      margin-bottom: 24px;
-    }
-
-    .button-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .button,
-    .button-secondary {
-      display: inline-block;
-      border-radius: 12px;
-      padding: 12px 18px;
-      font-weight: 700;
-      text-decoration: none;
-      border: 1px solid transparent;
-    }
-
-    .button {
-      background: var(--accent);
-      color: white;
-    }
-
-    .button:hover {
-      background: var(--accent-dark);
-      text-decoration: none;
-    }
-
-    .button-secondary {
-      background: white;
-      color: var(--text);
-      border-color: var(--border);
-    }
-
-    .button-secondary:hover {
-      background: var(--surface-2);
-      text-decoration: none;
-    }
-
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-      margin-top: 24px;
-    }
-
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 20px;
-    }
-
-    .card p {
-      color: var(--muted);
-      margin-bottom: 16px;
-    }
-
-    .section {
-      padding-top: 72px;
-      margin-top: -72px;
-      margin-bottom: 36px;
-    }
-
-    .section-header {
-      margin-bottom: 18px;
-    }
-
-    .section-header p {
-      color: var(--muted);
-      max-width: 760px;
-    }
-
-    .sub-grid {
-      display: grid;
-      gap: 18px;
-    }
-
-    .tip-list {
-      margin: 0;
-      padding-left: 20px;
-    }
-
-    .tip-list li {
-      margin-bottom: 10px;
-    }
-
-    .eyebrow {
-      font-size: 0.9rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--accent-dark);
-      margin-bottom: 8px;
-    }
-
-    .callout {
-      background: #fff9e8;
-      border: 1px solid #f3df9b;
-      border-radius: 16px;
-      padding: 16px;
-      margin-top: 18px;
-    }
-
-    .footer-note {
-      text-align: center;
-      color: var(--muted);
-      padding: 30px 10px 10px;
-    }
-
-    .mini-nav {
-      margin-top: 18px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .mini-nav a {
-      display: inline-block;
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-weight: 600;
-      padding: 10px 14px;
-      border-radius: 999px;
-      text-decoration: none;
-    }
-
-    .mini-nav a:hover {
-      background: #e4edf8;
-    }
-
-    @media (max-width: 850px) {
-      .card-grid {
-        grid-template-columns: 1fr;
-      }
-
-      h1 {
-        font-size: 1.9rem;
-      }
-
-      h2 {
-        font-size: 1.5rem;
-      }
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f8fafc;
     }
   </style>
 </head>
-<body>
-  <header class="site-header">
-    <div class="nav-wrap">
-      <div class="brand">📸 DIY Photo Guide</div>
-      <nav class="nav-links" aria-label="Primary navigation">
-        <a href="#home">Home</a>
-        <a href="#setup">Set Up</a>
-        <a href="#shot">Get the Shot</a>
-        <a href="#tech">Technical Tips</a>
-      </nav>
-    </div>
-  </header>
+<body class="bg-slate-50">
+  <div id="app" class="min-h-screen max-w-md mx-auto bg-slate-50 shadow-2xl flex flex-col"></div>
 
-  <main class="container">
-    <!-- HOME -->
-    <section id="home" class="hero section">
-      <div class="hero-badge">Quick Guide</div>
-      <h1>Take Better Photos on the Go</h1>
-      <p class="lead">
-        This is a quick, practical guide to help you take better pictures wherever you are.
-        Start with <strong>Set Up</strong> to be ready to capture shots, move to
-        <strong>Get the Shot</strong> for inspiration and helpful tips, and level up with
-        <strong>Technical Tips</strong> on lighting, composition, and stability.
-      </p>
+  <script>
+    const app = document.getElementById("app");
 
-      <div class="button-row">
-        <a class="button" href="#setup">Start with Set Up</a>
-        <a class="button-secondary" href="#shot">Go to Get the Shot</a>
-        <a class="button-secondary" href="#tech">View Technical Tips</a>
-      </div>
+    const sections = [
+      {
+        key: "home",
+        tabLabel: "Home",
+        pages: [
+          {
+            stepLabel: "Welcome",
+            title: "Take Better Photos on the Go",
+            description:
+              "This is a quick guide to help you take better pictures wherever you are.",
+            cards: [
+              {
+                icon: "⚙️",
+                title: "Set Up",
+                detail:
+                  "Be ready to capture the shot by checking your camera, phone, and basics before you begin."
+              },
+              {
+                icon: "🎯",
+                title: "Get the Shot",
+                detail:
+                  "Use practical tips and inspiration to make your photos stronger and more intentional."
+              },
+              {
+                icon: "💡",
+                title: "Technical Tips",
+                detail:
+                  "Level up with simple guidance on lighting, composition, and stability."
+              }
+            ],
+            callout:
+              "Start with Set Up to be ready to capture shots. Then move to Get the Shot, and finish by leveling up with Technical Tips."
+          }
+        ]
+      },
+      {
+        key: "setup",
+        tabLabel: "Set Up",
+        pages: [
+          {
+            stepLabel: "Page 1",
+            title: "Camera Prep",
+            description:
+              "Start with the basics so you are ready when the moment happens.",
+            items: [
+              {
+                icon: "🔋",
+                label: "Charge your camera",
+                detail: "Make sure it is fully charged before you head out."
+              },
+              {
+                icon: "💾",
+                label: "Clear space",
+                detail: "Free up room on your memory card or phone so you do not run out of storage."
+              },
+              {
+                icon: "🪫",
+                label: "Bring extra batteries",
+                detail: "Extra power can save the day when you are out shooting."
+              }
+            ]
+          },
+          {
+            stepLabel: "Page 2",
+            title: "Phone Details",
+            description:
+              "If you are using your phone, these small settings make a big difference.",
+            items: [
+              {
+                icon: "📷",
+                label: "Use the back camera",
+                detail: "The back camera usually gives you better image quality."
+              },
+              {
+                icon: "⚡",
+                label: "Disable flash",
+                detail: "Flash often makes photos look harsh or flat."
+              },
+              {
+                icon: "🎨",
+                label: "Remove filters",
+                detail: "Keep your image natural so you have more flexibility later."
+              },
+              {
+                icon: "🔍",
+                label: "Disable digital zoom",
+                detail: "Move closer instead when possible for better quality."
+              }
+            ]
+          },
+          {
+            stepLabel: "Page 3",
+            title: "Final Check",
+            description:
+              "Do one last thing before you start shooting.",
+            items: [
+              {
+                icon: "🧼",
+                label: "Clean your lens",
+                detail: "A quick wipe can make your photos much clearer."
+              }
+            ],
+            callout: "Ready? Next up: Get the Shot."
+          }
+        ]
+      },
+      {
+        key: "shot",
+        tabLabel: "Get the Shot",
+        pages: [
+          {
+            stepLabel: "Page 1",
+            title: "Figure Out the Goal of the Photo",
+            description:
+              "Know what you want the image to say before you tap the shutter.",
+            items: [
+              {
+                icon: "🧭",
+                label: "Start with purpose",
+                detail: "Decide whether you are capturing a person, a place, a detail, or a feeling."
+              },
+              {
+                icon: "🎯",
+                label: "Make one thing important",
+                detail: "Give the viewer something clear to focus on."
+              }
+            ]
+          },
+          {
+            stepLabel: "Page 2",
+            title: "Experiment with Angles",
+            description:
+              "Do not take every photo from the same point of view.",
+            items: [
+              {
+                icon: "⬆️",
+                label: "Try above",
+                detail: "A higher angle can simplify the scene."
+              },
+              {
+                icon: "⬇️",
+                label: "Try below",
+                detail: "A lower angle can add drama or interest."
+              },
+              {
+                icon: "↔️",
+                label: "Move around",
+                detail: "A small change in angle can completely change the shot."
+              }
+            ]
+          },
+          {
+            stepLabel: "Page 3",
+            title: "Use Light and Composition",
+            description:
+              "Look carefully at what is helping or hurting the photo.",
+            items: [
+              {
+                icon: "☀️",
+                label: "Watch the light",
+                detail: "Pay attention to where the light is coming from."
+              },
+              {
+                icon: "🖼️",
+                label: "Keep the frame simple",
+                detail: "A cleaner frame usually makes a stronger image."
+              },
+              {
+                icon: "🚶",
+                label: "Move yourself or the subject",
+                detail: "Sometimes the easiest fix is just to shift position."
+              }
+            ]
+          },
+          {
+            stepLabel: "Page 4",
+            title: "Focus on the Subject",
+            description:
+              "Make the main subject obvious and avoid distractions.",
+            items: [
+              {
+                icon: "👀",
+                label: "Make the subject clear",
+                detail: "The viewer should know what to look at first."
+              },
+              {
+                icon: "🧹",
+                label: "Avoid distractions",
+                detail: "Check the background for clutter or objects that pull attention away."
+              }
+            ],
+            callout: "Want to level up? Continue to Technical Tips."
+          }
+        ]
+      },
+      {
+        key: "tech",
+        tabLabel: "Technical Tips",
+        pages: [
+          {
+            stepLabel: "Page 1",
+            title: "Lighting",
+            description:
+              "Good light can improve almost any photo.",
+            items: [
+              {
+                icon: "🌤️",
+                label: "Use natural light",
+                detail: "Natural light is often the easiest and most flattering option."
+              },
+              {
+                icon: "🚫",
+                label: "Avoid harsh overhead light",
+                detail: "It can create strong shadows and make features look less flattering."
+              },
+              {
+                icon: "↩️",
+                label: "Turn toward the light",
+                detail: "A simple turn can brighten the subject and improve the shot."
+              }
+            ]
+          },
+          {
+            stepLabel: "Page 2",
+            title: "Composition",
+            description:
+              "Think about how everything is arranged inside the frame.",
+            items: [
+              {
+                icon: "📐",
+                label: "Use spacing and balance",
+                detail: "Give the subject room and avoid a cramped frame."
+              },
+              {
+                icon: "➖",
+                label: "Remove what is unnecessary",
+                detail: "Anything that does not help the image can weaken it."
+              },
+              {
+                icon: "➡️",
+                label: "Guide the eye",
+                detail: "Use lines, shapes, and placement to lead the viewer."
+              }
+            ]
+          },
+          {
+            stepLabel: "Page 3",
+            title: "Stability",
+            description:
+              "Sharper photos usually come from steadier hands.",
+            items: [
+              {
+                icon: "🤲",
+                label: "Hold steady",
+                detail: "Use both hands when you can."
+              },
+              {
+                icon: "🧱",
+                label: "Use support",
+                detail: "Lean against a wall or rest the phone on something stable."
+              },
+              {
+                icon: "✨",
+                label: "Reduce blur",
+                detail: "Less motion usually means a cleaner, sharper image."
+              }
+            ]
+          },
+          {
+            stepLabel: "Final Page",
+            title: "Most Important of All",
+            description:
+              "The best way to improve is to practice.",
+            items: [
+              {
+                icon: "📸",
+                label: "Take lots of pictures",
+                detail: "The more you practice, the better you will get."
+              },
+              {
+                icon: "🎉",
+                label: "Have fun",
+                detail: "Enjoy the process and keep experimenting."
+              }
+            ],
+            callout: "Go take lots of pictures and have fun!"
+          }
+        ]
+      }
+    ];
 
-      <div class="card-grid">
-        <article class="card">
-          <div class="eyebrow">Set Up</div>
-          <h3>Be ready before the moment happens</h3>
-          <p>
-            Charge your camera, clear space, bring extra batteries, and get your phone settings ready.
-          </p>
-          <a href="#setup">Explore Set Up →</a>
-        </article>
+    let currentSection = 0;
+    let currentPage = 0;
 
-        <article class="card">
-          <div class="eyebrow">Get the Shot</div>
-          <h3>Capture photos with purpose</h3>
-          <p>
-            Figure out your goal, try different angles, use light well, and keep the focus on your subject.
-          </p>
-          <a href="#shot">Explore Get the Shot →</a>
-        </article>
+    function render() {
+      const activeSection = sections[currentSection];
+      const pages = activeSection.pages;
+      const page = pages[currentPage];
+      const totalPages = pages.length;
+      const progress = ((currentPage + 1) / totalPages) * 100;
 
-        <article class="card">
-          <div class="eyebrow">Technical Tips</div>
-          <h3>Level up with simple technique</h3>
-          <p>
-            Learn the basics of lighting, composition, and stability to make your photos even stronger.
-          </p>
-          <a href="#tech">Explore Technical Tips →</a>
-        </article>
-      </div>
-    </section>
+      const tabsHtml = sections
+        .map((section, index) => {
+          const active = index === currentSection;
+          return `
+            <button
+              onclick="switchSection(${index})"
+              class="flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${
+                active
+                  ? "bg-white shadow-sm text-slate-900"
+                  : "text-slate-500"
+              }"
+            >
+              ${section.tabLabel}
+            </button>
+          `;
+        })
+        .join("");
 
-    <!-- SET UP -->
-    <section id="setup" class="section">
-      <div class="section-header">
-        <h2>Set Up</h2>
-        <p>
-          Start here so you are ready to capture the moment. A little preparation makes a big difference.
-        </p>
-      </div>
+      const itemCards = (page.items || [])
+        .map(
+          (item) => `
+            <div class="bg-white rounded-3xl border border-slate-100 shadow-sm p-5 flex gap-4">
+              <div class="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center text-2xl shrink-0">
+                ${item.icon}
+              </div>
+              <div>
+                <h3 class="font-bold text-lg text-slate-900 mb-1">${item.label}</h3>
+                <p class="text-slate-500 text-sm leading-relaxed">${item.detail}</p>
+              </div>
+            </div>
+          `
+        )
+        .join("");
 
-      <div class="mini-nav" aria-label="Set Up section navigation">
-        <a href="#setup-camera">Camera Prep</a>
-        <a href="#setup-phone">Phone Details</a>
-        <a href="#setup-finish">Final Check</a>
-      </div>
+      const homeCards = (page.cards || [])
+        .map(
+          (card) => `
+            <div class="bg-white rounded-3xl border border-slate-100 shadow-sm p-5 flex gap-4">
+              <div class="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center text-2xl shrink-0">
+                ${card.icon}
+              </div>
+              <div>
+                <h3 class="font-bold text-lg text-slate-900 mb-1">${card.title}</h3>
+                <p class="text-slate-500 text-sm leading-relaxed">${card.detail}</p>
+              </div>
+            </div>
+          `
+        )
+        .join("");
 
-      <div class="sub-grid">
-        <article id="setup-camera" class="card section">
-          <div class="eyebrow">Page 1</div>
-          <h3>Camera Prep</h3>
-          <ul class="tip-list">
-            <li><strong>Charge your camera</strong> so it is ready when you need it.</li>
-            <li><strong>Clear space</strong> on your memory card or device.</li>
-            <li><strong>Bring extra batteries</strong> so you do not run out of power.</li>
-          </ul>
-        </article>
-
-        <article id="setup-phone" class="card section">
-          <div class="eyebrow">Page 2</div>
-          <h3>Phone Details</h3>
-          <ul class="tip-list">
-            <li><strong>Use the back camera</strong> for better image quality.</li>
-            <li><strong>Disable flash</strong> unless you truly need it.</li>
-            <li><strong>Remove filters</strong> so your image looks natural.</li>
-            <li><strong>Disable digital zoom</strong> and move closer instead when possible.</li>
-          </ul>
-        </article>
-
-        <article id="setup-finish" class="card section">
-          <div class="eyebrow">Page 3</div>
-          <h3>Final Check</h3>
-          <ul class="tip-list">
-            <li><strong>Clean your lens</strong> before you start shooting.</li>
-          </ul>
-
-          <div class="callout">
-            Ready to start taking photos?
-            <br />
-            <a href="#shot"><strong>Go to Get the Shot →</strong></a>
+      app.innerHTML = `
+        <header class="bg-white px-6 pt-12 pb-6 border-b border-slate-100 sticky top-0 z-20">
+          <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-2">
+              <div class="bg-slate-900 p-2 rounded-xl text-white text-lg">📸</div>
+              <span class="font-bold text-lg tracking-tight">DIY Photo Guide</span>
+            </div>
+            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+              ${page.stepLabel} • ${currentPage + 1} of ${totalPages}
+            </span>
           </div>
-        </article>
-      </div>
-    </section>
 
-    <!-- GET THE SHOT -->
-    <section id="shot" class="section">
-      <div class="section-header">
-        <h2>Get the Shot</h2>
-        <p>
-          This section is all about creating stronger photos with intention, creativity, and focus.
-        </p>
-      </div>
-
-      <div class="mini-nav" aria-label="Get the Shot section navigation">
-        <a href="#shot-goal">Goal of the Photo</a>
-        <a href="#shot-angles">Angles</a>
-        <a href="#shot-light">Light & Composition</a>
-        <a href="#shot-focus">Focus on Subject</a>
-      </div>
-
-      <div class="sub-grid">
-        <article id="shot-goal" class="card section">
-          <div class="eyebrow">Page 1</div>
-          <h3>Figure Out the Goal of the Photo</h3>
-          <ul class="tip-list">
-            <li>Ask yourself what you want the picture to show.</li>
-            <li>Are you capturing a person, a moment, a place, or a feeling?</li>
-            <li>Knowing your goal helps you make better choices before you tap the shutter.</li>
-          </ul>
-        </article>
-
-        <article id="shot-angles" class="card section">
-          <div class="eyebrow">Page 2</div>
-          <h3>Experiment with Angles</h3>
-          <ul class="tip-list">
-            <li>Try shooting from above, below, or from the side.</li>
-            <li>Move around instead of taking every photo from eye level.</li>
-            <li>Small changes in angle can make a photo much more interesting.</li>
-          </ul>
-        </article>
-
-        <article id="shot-light" class="card section">
-          <div class="eyebrow">Page 3</div>
-          <h3>Use Light and Composition</h3>
-          <ul class="tip-list">
-            <li>Pay attention to where the light is coming from.</li>
-            <li>Try to keep your frame simple and intentional.</li>
-            <li>Move your subject or yourself to improve the overall look of the image.</li>
-          </ul>
-        </article>
-
-        <article id="shot-focus" class="card section">
-          <div class="eyebrow">Page 4</div>
-          <h3>Focus on the Subject and Avoid Distractions</h3>
-          <ul class="tip-list">
-            <li>Make it clear what the viewer should look at first.</li>
-            <li>Check the background for clutter or distracting objects.</li>
-            <li>Keep the subject as the star of the photo.</li>
-          </ul>
-
-          <div class="callout">
-            Want to level up even more?
-            <br />
-            <a href="#tech"><strong>Go to Technical Tips →</strong></a>
+          <div class="flex bg-slate-100 p-1 rounded-2xl mb-4">
+            ${tabsHtml}
           </div>
-        </article>
-      </div>
-    </section>
 
-    <!-- TECHNICAL TIPS -->
-    <section id="tech" class="section">
-      <div class="section-header">
-        <h2>Technical Tips</h2>
-        <p>
-          These are simple techniques that can make your photos look more polished without making things complicated.
-        </p>
-      </div>
-
-      <div class="mini-nav" aria-label="Technical Tips section navigation">
-        <a href="#tech-lighting">Lighting</a>
-        <a href="#tech-composition">Composition</a>
-        <a href="#tech-stability">Stability</a>
-        <a href="#tech-finale">Final Reminder</a>
-      </div>
-
-      <div class="sub-grid">
-        <article id="tech-lighting" class="card section">
-          <div class="eyebrow">Page 1</div>
-          <h3>Lighting</h3>
-          <ul class="tip-list">
-            <li>Good light can make almost any photo better.</li>
-            <li>Natural light is often the easiest and most flattering choice.</li>
-            <li>Avoid harsh overhead light when possible.</li>
-            <li>Try turning your subject toward the light for a clearer, brighter image.</li>
-          </ul>
-        </article>
-
-        <article id="tech-composition" class="card section">
-          <div class="eyebrow">Page 2</div>
-          <h3>Composition</h3>
-          <ul class="tip-list">
-            <li>Think about how the elements are arranged in the frame.</li>
-            <li>Leave out anything that does not help the photo.</li>
-            <li>Use lines, spacing, and balance to guide the viewer’s eye.</li>
-          </ul>
-        </article>
-
-        <article id="tech-stability" class="card section">
-          <div class="eyebrow">Page 3</div>
-          <h3>Stability</h3>
-          <ul class="tip-list">
-            <li>Hold your camera or phone as steady as possible.</li>
-            <li>Use both hands when you can.</li>
-            <li>Lean against a wall or rest your device on something stable if needed.</li>
-            <li>Less movement usually means a sharper picture.</li>
-          </ul>
-        </article>
-
-        <article id="tech-finale" class="card section">
-          <div class="eyebrow">Final Page</div>
-          <h3>Most Important of All</h3>
-          <p>
-            Go take lots of pictures and have fun.
-          </p>
-          <div class="callout">
-            The best way to improve is to keep shooting, keep experimenting, and enjoy the process.
+          <div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+            <div
+              class="h-full bg-slate-900 rounded-full transition-all duration-500"
+              style="width:${progress}%"
+            ></div>
           </div>
-        </article>
-      </div>
-    </section>
+        </header>
 
-    <p class="footer-note">
-      DIY Photo Guide • Quick tips for better photos on the go
-    </p>
-  </main>
+        <main class="flex-1 p-6 pb-32 overflow-y-auto">
+          <div class="animate-slide-in">
+            <h1 class="text-[32px] font-bold text-slate-900 mb-2 leading-tight">
+              ${page.title}
+            </h1>
+            <p class="text-slate-500 text-lg mb-8 leading-relaxed">
+              ${page.description}
+            </p>
+
+            <div class="space-y-4">
+              ${activeSection.key === "home" ? homeCards : itemCards}
+            </div>
+
+            ${
+              page.callout
+                ? `
+                <div class="mt-8 bg-amber-50 border border-amber-100 p-5 rounded-3xl">
+                  <p class="text-amber-800 font-medium text-sm leading-relaxed">
+                    ${page.callout}
+                  </p>
+                </div>
+              `
+                : ""
+            }
+          </div>
+        </main>
+
+        <footer class="fixed bottom-0 left-0 right-0 max-w-md mx-auto p-6 bg-white/90 backdrop-blur-md border-t border-slate-200 z-30">
+          <div class="flex gap-4">
+            ${
+              currentPage > 0
+                ? `
+                <button
+                  onclick="prevPage()"
+                  class="w-14 h-14 border border-slate-200 rounded-2xl flex items-center justify-center text-slate-500 text-2xl active:bg-slate-50"
+                >
+                  ←
+                </button>
+              `
+                : ""
+            }
+
+            <button
+              onclick="nextPage()"
+              class="flex-1 h-14 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg transition-all active:scale-[0.98] ${
+                currentPage === totalPages - 1
+                  ? "bg-emerald-600 text-white"
+                  : "bg-slate-900 text-white"
+              }"
+            >
+              ${
+                currentPage === totalPages - 1
+                  ? activeSection.key === "tech"
+                    ? "You’re Ready"
+                    : "Section Complete"
+                  : "Next Step"
+              }
+              <span>→</span>
+            </button>
+          </div>
+        </footer>
+      `;
+    }
+
+    function switchSection(index) {
+      currentSection = index;
+      currentPage = 0;
+      render();
+    }
+
+    function nextPage() {
+      const pages = sections[currentSection].pages;
+      if (currentPage < pages.length - 1) {
+        currentPage++;
+      }
+      render();
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        currentPage--;
+      }
+      render();
+    }
+
+    render();
+
+    window.switchSection = switchSection;
+    window.nextPage = nextPage;
+    window.prevPage = prevPage;
+  </script>
 </body>
 </html>
