@@ -6,12 +6,19 @@
     name="viewport"
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
   />
-  <title>DIY Photo Guide</title>
+  <title>HGK Photo Guide</title>
   <meta
     name="description"
     content="A quick mobile guide to taking better photos on the go."
   />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
+
   <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
     @keyframes slideIn {
       from {
@@ -35,12 +42,12 @@
 
     body {
       font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f8fafc;
+      background: #eff6ff;
     }
   </style>
 </head>
-<body class="bg-slate-50">
-  <div id="app" class="min-h-screen max-w-md mx-auto bg-slate-50 shadow-2xl flex flex-col"></div>
+<body class="bg-blue-50">
+  <div id="app" class="min-h-screen max-w-md mx-auto bg-gradient-to-b from-blue-50 via-white to-blue-100 shadow-2xl flex flex-col"></div>
 
   <script>
     const app = document.getElementById("app");
@@ -54,7 +61,7 @@
             stepLabel: "Welcome",
             title: "Take Better Photos on the Go",
             description:
-              "This is a quick guide to help you take better pictures wherever you are.",
+              "A quick guide to help you take better pictures wherever you are. Start with Set Up, move to Get the Shot, and level up with Technical Tips.",
             cards: [
               {
                 icon: "⚙️",
@@ -75,8 +82,10 @@
                   "Level up with simple guidance on lighting, composition, and stability."
               }
             ],
-            callout:
-              "Start with Set Up to be ready to capture shots. Then move to Get the Shot, and finish by leveling up with Technical Tips."
+            cta: {
+              label: "Start with Set Up",
+              action: { type: "section", section: "setup" }
+            }
           }
         ]
       },
@@ -147,13 +156,16 @@
                 detail: "A quick wipe can make your photos much clearer."
               }
             ],
-            callout: "Ready? Next up: Get the Shot."
+            cta: {
+              label: "Go to Get the Shot",
+              action: { type: "section", section: "shot" }
+            }
           }
         ]
       },
       {
         key: "shot",
-        tabLabel: "Get the Shot",
+        tabLabel: "Get Shot",
         pages: [
           {
             stepLabel: "Page 1",
@@ -236,13 +248,16 @@
                 detail: "Check the background for clutter or objects that pull attention away."
               }
             ],
-            callout: "Want to level up? Continue to Technical Tips."
+            cta: {
+              label: "Go to Technical Tips",
+              action: { type: "section", section: "tech" }
+            }
           }
         ]
       },
       {
         key: "tech",
-        tabLabel: "Technical Tips",
+        tabLabel: "Tech Tips",
         pages: [
           {
             stepLabel: "Page 1",
@@ -330,7 +345,10 @@
                 detail: "Enjoy the process and keep experimenting."
               }
             ],
-            callout: "Go take lots of pictures and have fun!"
+            cta: {
+              label: "Back to Home",
+              action: { type: "section", section: "home" }
+            }
           }
         ]
       }
@@ -338,6 +356,26 @@
 
     let currentSection = 0;
     let currentPage = 0;
+
+    function getSectionIndexByKey(key) {
+      return sections.findIndex((section) => section.key === key);
+    }
+
+    function goToSection(sectionKey) {
+      const index = getSectionIndexByKey(sectionKey);
+      if (index >= 0) {
+        currentSection = index;
+        currentPage = 0;
+        render();
+      }
+    }
+
+    function handleCta(action) {
+      if (!action) return;
+      if (action.type === "section") {
+        goToSection(action.section);
+      }
+    }
 
     function render() {
       const activeSection = sections[currentSection];
@@ -354,8 +392,8 @@
               onclick="switchSection(${index})"
               class="flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${
                 active
-                  ? "bg-white shadow-sm text-slate-900"
-                  : "text-slate-500"
+                  ? "bg-white shadow-sm text-blue-900"
+                  : "text-blue-500"
               }"
             >
               ${section.tabLabel}
@@ -364,16 +402,16 @@
         })
         .join("");
 
-      const itemCards = (page.items || [])
+      const standardCards = (page.items || [])
         .map(
           (item) => `
-            <div class="bg-white rounded-3xl border border-slate-100 shadow-sm p-5 flex gap-4">
-              <div class="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center text-2xl shrink-0">
+            <div class="bg-white rounded-3xl border border-blue-100 shadow-sm p-5 flex gap-4">
+              <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-2xl shrink-0">
                 ${item.icon}
               </div>
               <div>
-                <h3 class="font-bold text-lg text-slate-900 mb-1">${item.label}</h3>
-                <p class="text-slate-500 text-sm leading-relaxed">${item.detail}</p>
+                <h3 class="font-bold text-lg text-blue-950 mb-1">${item.label}</h3>
+                <p class="text-blue-700/80 text-sm leading-relaxed">${item.detail}</p>
               </div>
             </div>
           `
@@ -383,38 +421,55 @@
       const homeCards = (page.cards || [])
         .map(
           (card) => `
-            <div class="bg-white rounded-3xl border border-slate-100 shadow-sm p-5 flex gap-4">
-              <div class="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center text-2xl shrink-0">
+            <div class="bg-white rounded-3xl border border-blue-100 shadow-sm p-5 flex gap-4">
+              <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-2xl shrink-0">
                 ${card.icon}
               </div>
               <div>
-                <h3 class="font-bold text-lg text-slate-900 mb-1">${card.title}</h3>
-                <p class="text-slate-500 text-sm leading-relaxed">${card.detail}</p>
+                <h3 class="font-bold text-lg text-blue-950 mb-1">${card.title}</h3>
+                <p class="text-blue-700/80 text-sm leading-relaxed">${card.detail}</p>
               </div>
             </div>
           `
         )
         .join("");
 
-      app.innerHTML = `
-        <header class="bg-white px-6 pt-12 pb-6 border-b border-slate-100 sticky top-0 z-20">
-          <div class="flex items-center justify-between mb-6">
-            <div class="flex items-center gap-2">
-              <div class="bg-slate-900 p-2 rounded-xl text-white text-lg">📸</div>
-              <span class="font-bold text-lg tracking-tight">DIY Photo Guide</span>
+      const ctaHtml = page.cta
+        ? `
+          <button
+            onclick='handleCta(${JSON.stringify(page.cta.action)})'
+            class="mt-8 w-full bg-blue-600 hover:bg-blue-700 text-white rounded-3xl p-5 text-left shadow-lg transition-all"
+          >
+            <div class="text-xs font-bold uppercase tracking-widest text-blue-100 mb-1">Next Section</div>
+            <div class="text-base font-semibold flex items-center justify-between">
+              <span>${page.cta.label}</span>
+              <span>→</span>
             </div>
-            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+          </button>
+        `
+        : "";
+
+      app.innerHTML = `
+        <header class="bg-white/95 px-6 pt-12 pb-6 border-b border-blue-100 sticky top-0 z-20 backdrop-blur-md">
+          <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-3">
+              <div class="bg-blue-700 p-2 rounded-xl text-white">
+                <img src="/favicon-32.png" alt="HGK Photo logo" class="w-5 h-5" />
+              </div>
+              <span class="font-bold text-lg tracking-tight text-blue-950">HGK Photo Guide</span>
+            </div>
+            <span class="text-[11px] font-bold text-blue-400 uppercase tracking-widest">
               ${page.stepLabel} • ${currentPage + 1} of ${totalPages}
             </span>
           </div>
 
-          <div class="flex bg-slate-100 p-1 rounded-2xl mb-4">
+          <div class="flex bg-blue-100 p-1 rounded-2xl mb-4">
             ${tabsHtml}
           </div>
 
-          <div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+          <div class="h-1.5 w-full bg-blue-100 rounded-full overflow-hidden">
             <div
-              class="h-full bg-slate-900 rounded-full transition-all duration-500"
+              class="h-full bg-blue-700 rounded-full transition-all duration-500"
               style="width:${progress}%"
             ></div>
           </div>
@@ -422,39 +477,29 @@
 
         <main class="flex-1 p-6 pb-32 overflow-y-auto">
           <div class="animate-slide-in">
-            <h1 class="text-[32px] font-bold text-slate-900 mb-2 leading-tight">
+            <h1 class="text-[32px] font-bold text-blue-950 mb-2 leading-tight">
               ${page.title}
             </h1>
-            <p class="text-slate-500 text-lg mb-8 leading-relaxed">
+            <p class="text-blue-700/80 text-lg mb-8 leading-relaxed">
               ${page.description}
             </p>
 
             <div class="space-y-4">
-              ${activeSection.key === "home" ? homeCards : itemCards}
+              ${activeSection.key === "home" ? homeCards : standardCards}
             </div>
 
-            ${
-              page.callout
-                ? `
-                <div class="mt-8 bg-amber-50 border border-amber-100 p-5 rounded-3xl">
-                  <p class="text-amber-800 font-medium text-sm leading-relaxed">
-                    ${page.callout}
-                  </p>
-                </div>
-              `
-                : ""
-            }
+            ${ctaHtml}
           </div>
         </main>
 
-        <footer class="fixed bottom-0 left-0 right-0 max-w-md mx-auto p-6 bg-white/90 backdrop-blur-md border-t border-slate-200 z-30">
+        <footer class="fixed bottom-0 left-0 right-0 max-w-md mx-auto p-6 bg-white/90 backdrop-blur-md border-t border-blue-100 z-30">
           <div class="flex gap-4">
             ${
               currentPage > 0
                 ? `
                 <button
                   onclick="prevPage()"
-                  class="w-14 h-14 border border-slate-200 rounded-2xl flex items-center justify-center text-slate-500 text-2xl active:bg-slate-50"
+                  class="w-14 h-14 border border-blue-200 rounded-2xl flex items-center justify-center text-blue-700 text-2xl active:bg-blue-50"
                 >
                   ←
                 </button>
@@ -466,15 +511,13 @@
               onclick="nextPage()"
               class="flex-1 h-14 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg transition-all active:scale-[0.98] ${
                 currentPage === totalPages - 1
-                  ? "bg-emerald-600 text-white"
-                  : "bg-slate-900 text-white"
+                  ? "bg-blue-500 text-white"
+                  : "bg-blue-700 text-white"
               }"
             >
               ${
                 currentPage === totalPages - 1
-                  ? activeSection.key === "tech"
-                    ? "You’re Ready"
-                    : "Section Complete"
+                  ? "Section Complete"
                   : "Next Step"
               }
               <span>→</span>
@@ -505,11 +548,12 @@
       render();
     }
 
-    render();
-
     window.switchSection = switchSection;
     window.nextPage = nextPage;
     window.prevPage = prevPage;
+    window.handleCta = handleCta;
+
+    render();
   </script>
 </body>
 </html>
