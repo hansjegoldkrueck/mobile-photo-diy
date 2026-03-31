@@ -436,12 +436,12 @@
 
       const ctaHtml = page.cta
         ? `
-         <button
-  ${currentPage === totalPages - 1 ? "" : 'onclick="nextPage()"'}
-  class="flex-1 h-14 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg transition-all ${
+ <button
+  onclick="nextPage()"
+  class="flex-1 h-14 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg transition-all active:scale-[0.98] ${
     currentPage === totalPages - 1
-      ? "bg-blue-300 text-white cursor-default"
-      : "bg-blue-700 text-white active:scale-[0.98]"
+      ? "bg-blue-500 text-white"
+      : "bg-blue-700 text-white"
   }"
 >
   ${
@@ -449,12 +449,7 @@
       ? "Section Complete"
       : "Next Step"
   }
-
-  ${
-    currentPage === totalPages - 1
-      ? ""
-      : "<span>→</span>"
-  }
+  <span>→</span>
 </button>
         `
         : "";
