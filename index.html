@@ -12,7 +12,6 @@
     content="A quick mobile guide to taking better photos on the go."
   />
 
-  <!-- Favicon -->
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
@@ -165,7 +164,7 @@
       },
       {
         key: "shot",
-        tabLabel: "Get Shot",
+        tabLabel: "Get the Shot",
         pages: [
           {
             stepLabel: "Page 1",
@@ -370,13 +369,6 @@
       }
     }
 
-    function handleCta(action) {
-      if (!action) return;
-      if (action.type === "section") {
-        goToSection(action.section);
-      }
-    }
-
     function render() {
       const activeSection = sections[currentSection];
       const pages = activeSection.pages;
@@ -434,10 +426,17 @@
         )
         .join("");
 
-      const ctaHtml = page.cta
+      const hasRealCta =
+        page.cta &&
+        page.cta.label &&
+        page.cta.action &&
+        page.cta.action.type === "section" &&
+        page.cta.action.section;
+
+      const ctaHtml = hasRealCta
         ? `
           <button
-            onclick='handleCta(${JSON.stringify(page.cta.action)})'
+            onclick='goToSection("${page.cta.action.section}")'
             class="mt-8 w-full bg-blue-600 hover:bg-blue-700 text-white rounded-3xl p-5 text-left shadow-lg transition-all"
           >
             <div class="text-xs font-bold uppercase tracking-widest text-blue-100 mb-1">Next Section</div>
@@ -454,9 +453,9 @@
           <div class="flex items-center justify-between mb-6">
             <div class="flex items-center gap-3">
               <div class="bg-blue-700 p-2 rounded-xl text-white">
-                <img src="/favicon-32.png" alt="HGK Photo logo" class="w-5 h-5" />
+                <img src="/favicon-32.png" alt="Photo logo" class="w-5 h-5" />
               </div>
-              <span class="font-bold text-lg tracking-tight text-blue-950">HGK Photo Guide</span>
+              <span class="font-bold text-lg tracking-tight text-blue-950">Mobile Photo Guide</span>
             </div>
             <span class="text-[11px] font-bold text-blue-400 uppercase tracking-widest">
               ${page.stepLabel} • ${currentPage + 1} of ${totalPages}
@@ -507,21 +506,26 @@
                 : ""
             }
 
-            <button
-              onclick="nextPage()"
-              class="flex-1 h-14 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg transition-all active:scale-[0.98] ${
-                currentPage === totalPages - 1
-                  ? "bg-blue-500 text-white"
-                  : "bg-blue-700 text-white"
-              }"
-            >
-              ${
-                currentPage === totalPages - 1
-                  ? "Section Complete"
-                  : "Next Step"
-              }
-              <span>→</span>
-            </button>
+            ${
+              currentPage === totalPages - 1
+                ? `
+                <button
+                  class="flex-1 h-14 rounded-2xl font-bold flex items-center justify-center shadow-lg bg-blue-300 text-white cursor-default"
+                  disabled
+                >
+                  Section Complete
+                </button>
+              `
+                : `
+                <button
+                  onclick="nextPage()"
+                  class="flex-1 h-14 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg transition-all active:scale-[0.98] bg-blue-700 text-white"
+                >
+                  Next Step
+                  <span>→</span>
+                </button>
+              `
+            }
           </div>
         </footer>
       `;
@@ -551,7 +555,7 @@
     window.switchSection = switchSection;
     window.nextPage = nextPage;
     window.prevPage = prevPage;
-    window.handleCta = handleCta;
+    window.goToSection = goToSection;
 
     render();
   </script>
