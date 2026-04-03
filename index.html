@@ -46,7 +46,10 @@
   </style>
 </head>
 <body class="bg-blue-50">
-  <div id="app" class="min-h-screen max-w-md mx-auto bg-gradient-to-b from-blue-50 via-white to-blue-100 shadow-2xl flex flex-col"></div>
+  <div
+    id="app"
+    class="min-h-screen max-w-md mx-auto bg-gradient-to-b from-blue-50 via-white to-blue-100 shadow-2xl flex flex-col"
+  ></div>
 
   <script>
     const app = document.getElementById("app");
@@ -60,7 +63,7 @@
             stepLabel: "Welcome",
             title: "Take Better Photos on the Go",
             description:
-              "A quick guide to help you take better pictures wherever you are. Start with Set Up, move to Get the Shot, and level up with Technical Tips.",
+              "A quick guide to help you take better pictures wherever you are. Start with Set Up, move to Get the Shot, practice better Selfies, and level up with Technical Tips.",
             cards: [
               {
                 icon: "⚙️",
@@ -75,6 +78,12 @@
                   "Use practical tips and inspiration to make your photos stronger and more intentional."
               },
               {
+                icon: "🤳",
+                title: "Selfies",
+                detail:
+                  "Learn easy ways to use light and hold your phone for better selfies."
+              },
+              {
                 icon: "💡",
                 title: "Technical Tips",
                 detail:
@@ -83,7 +92,7 @@
             ],
             cta: {
               label: "Start with Set Up",
-              action: { type: "section", section: "setup" }
+              section: "setup"
             }
           }
         ]
@@ -157,7 +166,7 @@
             ],
             cta: {
               label: "Go to Get the Shot",
-              action: { type: "section", section: "shot" }
+              section: "shot"
             }
           }
         ]
@@ -248,8 +257,148 @@
               }
             ],
             cta: {
+              label: "Go to Selfies",
+              section: "selfie"
+            }
+          }
+        ]
+      },
+      {
+        key: "selfie",
+        tabLabel: "Selfies",
+        pages: [
+          {
+            stepLabel: "Page 1",
+            title: "Take a Great Selfie",
+            description:
+              "You do not need to be tech-savvy to take a good selfie. A few simple steps can make a big difference.",
+            items: [
+              {
+                icon: "🤳",
+                label: "Use the front camera",
+                detail: "This is the camera facing you on the screen."
+              },
+              {
+                icon: "🧼",
+                label: "Clean your lens",
+                detail: "A quick wipe makes your photo clearer instantly."
+              },
+              {
+                icon: "💡",
+                label: "Start with good light",
+                detail: "Lighting matters more than anything else."
+              }
+            ]
+          },
+          {
+            stepLabel: "Page 2",
+            title: "Find Soft, Flattering Light",
+            description:
+              "Good light makes your face look clear and natural. The best light is soft, not harsh.",
+            items: [
+              {
+                icon: "☀️",
+                label: "Face the light",
+                detail: "Stand facing a window or light source so your face is well lit."
+              },
+              {
+                icon: "🪟",
+                label: "Use a window with a curtain",
+                detail: "A sheer curtain softens bright light and makes it more flattering."
+              },
+              {
+                icon: "🌳",
+                label: "Step into the shade",
+                detail: "Outdoors, stand under a tree or overhang to avoid harsh sunlight."
+              },
+              {
+                icon: "🚫",
+                label: "Avoid light behind you",
+                detail: "If the light is behind you, your face will look dark."
+              },
+              {
+                icon: "💡",
+                label: "Quick tip",
+                detail: "If your face looks too bright or too dark, move slightly until the light looks even."
+              }
+            ]
+          },
+          {
+            stepLabel: "Page 3",
+            title: "How to Hold Your Phone",
+            description:
+              "A small change in how you hold your phone can make a big difference.",
+            items: [
+              {
+                icon: "📐",
+                label: "Hold slightly above eye level",
+                detail: "This is usually more flattering than holding the phone below your face."
+              },
+              {
+                icon: "↔️",
+                label: "Do not hold it too close",
+                detail: "Extend your arm a bit so your face looks more natural."
+              },
+              {
+                icon: "🤲",
+                label: "Use both hands if needed",
+                detail: "This helps keep your phone steady and reduces blur."
+              },
+              {
+                icon: "🧱",
+                label: "Use support if possible",
+                detail: "Lean on a wall or rest your elbows if you need more stability."
+              }
+            ]
+          },
+          {
+            stepLabel: "Page 4",
+            title: "Frame Yourself Naturally",
+            description:
+              "You do not need to be perfect. Just make sure you are the focus.",
+            items: [
+              {
+                icon: "👀",
+                label: "Look at the camera",
+                detail: "Do not look at your face on the screen. Looking at the camera makes the photo feel more natural."
+              },
+              {
+                icon: "🧍",
+                label: "Include your head and shoulders",
+                detail: "Try not to crop too tightly or cut off the top of your head."
+              },
+              {
+                icon: "🧹",
+                label: "Check your background",
+                detail: "If possible, remove clutter behind you so the focus stays on your face."
+              }
+            ]
+          },
+          {
+            stepLabel: "Final Page",
+            title: "Take a Few and Choose",
+            description:
+              "You do not need to get it perfect on the first try.",
+            items: [
+              {
+                icon: "📸",
+                label: "Take a few photos",
+                detail: "Small differences can change the result."
+              },
+              {
+                icon: "😊",
+                label: "Relax your face",
+                detail: "A natural expression usually looks best."
+              },
+              {
+                icon: "🎉",
+                label: "Have fun",
+                detail: "The more you try, the better you get."
+              }
+            ],
+            cta: {
               label: "Go to Technical Tips",
-              action: { type: "section", section: "tech" }
+              section: "tech"
             }
           }
         ]
@@ -346,7 +495,7 @@
             ],
             cta: {
               label: "Back to Home",
-              action: { type: "section", section: "home" }
+              section: "home"
             }
           }
         ]
@@ -369,6 +518,53 @@
       }
     }
 
+    function switchSection(index) {
+      currentSection = index;
+      currentPage = 0;
+      render();
+    }
+
+    function nextPage() {
+      const pages = sections[currentSection].pages;
+      if (currentPage < pages.length - 1) {
+        currentPage++;
+      }
+      render();
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        currentPage--;
+      }
+      render();
+    }
+
+    function renderCard(item, isTip = false) {
+      return `
+        <div class="${
+          isTip ? "bg-blue-50 border-blue-200" : "bg-white border-blue-100"
+        } rounded-3xl border shadow-sm p-5 flex gap-4">
+          <div class="w-12 h-12 rounded-2xl ${
+            isTip ? "bg-blue-100" : "bg-blue-50"
+          } flex items-center justify-center text-2xl shrink-0">
+            ${item.icon}
+          </div>
+          <div>
+            <h3 class="font-bold text-lg ${
+              isTip ? "text-blue-900" : "text-blue-950"
+            } mb-1">
+              ${item.label || item.title}
+            </h3>
+            <p class="${
+              isTip ? "text-blue-800" : "text-blue-700/80"
+            } text-sm leading-relaxed">
+              ${item.detail}
+            </p>
+          </div>
+        </div>
+      `;
+    }
+
     function render() {
       const activeSection = sections[currentSection];
       const pages = activeSection.pages;
@@ -383,9 +579,7 @@
             <button
               onclick="switchSection(${index})"
               class="flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${
-                active
-                  ? "bg-white shadow-sm text-blue-900"
-                  : "text-blue-500"
+                active ? "bg-white shadow-sm text-blue-900" : "text-blue-500"
               }"
             >
               ${section.tabLabel}
@@ -395,48 +589,25 @@
         .join("");
 
       const standardCards = (page.items || [])
-        .map(
-          (item) => `
-            <div class="bg-white rounded-3xl border border-blue-100 shadow-sm p-5 flex gap-4">
-              <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-2xl shrink-0">
-                ${item.icon}
-              </div>
-              <div>
-                <h3 class="font-bold text-lg text-blue-950 mb-1">${item.label}</h3>
-                <p class="text-blue-700/80 text-sm leading-relaxed">${item.detail}</p>
-              </div>
-            </div>
-          `
-        )
+        .map((item) => {
+          const isTip = item.label && item.label.toLowerCase().includes("tip");
+          return renderCard(item, isTip);
+        })
         .join("");
 
       const homeCards = (page.cards || [])
-        .map(
-          (card) => `
-            <div class="bg-white rounded-3xl border border-blue-100 shadow-sm p-5 flex gap-4">
-              <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-2xl shrink-0">
-                ${card.icon}
-              </div>
-              <div>
-                <h3 class="font-bold text-lg text-blue-950 mb-1">${card.title}</h3>
-                <p class="text-blue-700/80 text-sm leading-relaxed">${card.detail}</p>
-              </div>
-            </div>
-          `
-        )
+        .map((card) => renderCard(card, false))
         .join("");
 
       const hasRealCta =
         page.cta &&
         page.cta.label &&
-        page.cta.action &&
-        page.cta.action.type === "section" &&
-        page.cta.action.section;
+        page.cta.section;
 
       const ctaHtml = hasRealCta
         ? `
           <button
-            onclick='goToSection("${page.cta.action.section}")'
+            onclick='goToSection("${page.cta.section}")'
             class="mt-8 w-full bg-blue-600 hover:bg-blue-700 text-white rounded-3xl p-5 text-left shadow-lg transition-all"
           >
             <div class="text-xs font-bold uppercase tracking-widest text-blue-100 mb-1">Next Section</div>
@@ -462,7 +633,7 @@
             </span>
           </div>
 
-          <div class="flex bg-blue-100 p-1 rounded-2xl mb-4">
+          <div class="flex bg-blue-100 p-1 rounded-2xl mb-4 gap-1 overflow-x-auto">
             ${tabsHtml}
           </div>
 
@@ -479,6 +650,7 @@
             <h1 class="text-[32px] font-bold text-blue-950 mb-2 leading-tight">
               ${page.title}
             </h1>
+
             <p class="text-blue-700/80 text-lg mb-8 leading-relaxed">
               ${page.description}
             </p>
@@ -529,27 +701,6 @@
           </div>
         </footer>
       `;
-    }
-
-    function switchSection(index) {
-      currentSection = index;
-      currentPage = 0;
-      render();
-    }
-
-    function nextPage() {
-      const pages = sections[currentSection].pages;
-      if (currentPage < pages.length - 1) {
-        currentPage++;
-      }
-      render();
-    }
-
-    function prevPage() {
-      if (currentPage > 0) {
-        currentPage--;
-      }
-      render();
     }
 
     window.switchSection = switchSection;
